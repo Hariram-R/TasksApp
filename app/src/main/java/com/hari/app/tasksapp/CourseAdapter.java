@@ -1,6 +1,7 @@
 package com.hari.app.tasksapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,8 +65,17 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseVH> 
             courseBtn=itemView.findViewById(R.id.courseBtn);
         }
 
-        void populateCourse(Course course){
+        void populateCourse(final Course course){
             courseBtn.setText(course.getCourseName()+" "+course.getCourseCode());
+            courseBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent loadTasks = new Intent(context, TasksActivity.class);
+                    loadTasks.putExtra("courseCode", course.getCourseCode());
+                    itemView.getContext().startActivity(loadTasks);
+                }
+            });
+
         }
     }
 }
